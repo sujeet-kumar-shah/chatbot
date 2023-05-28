@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<html>
+<body>
+    <div id="chat_log"></div>
+    
+    <form id="chat_massage">
+        <input type="text" placeholder="enter your query" id="query" name="message">
+        <button type="submit">send</button>
+    </form>
+
+    <script>
+        $('#chat_massage').submit(function (event) {
+            event.preventDefault();
+            sendMessage();
+        });
+
+        function sendMessage() {
+            var message = $('input[name="message"]').val();
+            $.get('chat.php', { message: message }, function (response) {
+                $('#chat_log').append('<p><strong>you:</strong>' + message + '</p>');
+                $('#chat_log').append('<p><strong>chatbot:</strong>' + response + '</p>');
+                $('input[name="message"]').val('');
+            });
+        }
+    </script>
+</body>
+</html>
